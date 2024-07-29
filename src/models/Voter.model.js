@@ -7,27 +7,27 @@ const voterSchema = new Schema({
     name : {
         type : String,
         min: [3, 'min 3 character'],
-        required : true
+        required : [true, "name are required"]
     },
     email : {
         type : String,
-        required : true,
-        unique : true
+        required : [true, "email are required"],
+        unique : [true, "email are unique"],
     },
     cardNumber : {
         type : Number,
-        required : true,
-        unique : true
+        required : [true, "Card number are required"],
+        unique : [true, "Card number are unique"],
     },
     phoneNumber : {
         type : Number,
-        required : true,
+        required : [true, "Phone number are required"],
         min : [11, "minimuim 11 character"],
         unique : true
     },
     password : {
         type : String,
-        required : true,
+        required : [true, "Password are required"],
     },
     votePole : {
         type : Boolean,
