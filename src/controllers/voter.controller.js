@@ -33,9 +33,37 @@ const registration = async (req, res) => {
    }
 };
 
+const login = async (req, res) => {
+  try {
+
+    const {cardNumber, password} = req.body;
+
+    const voter = await Voter.findOne({cardNumber});
+
+    if(!voter){
+      return res.status(400).json("Card number are not register")
+    }
+
+    const passwordCheck = await voter.isPasswordCorrect(password);
+
+    if(!passwordCheck){
+      return res.status(400).json("Invalid password");
+    }
+
+    return res.status(200).json("User logged in successfully")
+    
+  } catch (error) {
+    
+    for(field in error.errors){
+      return res.status(400).json(error.errors[field].message)
+    }
+
+  };
+};
 
 
 
 module.exports = {
-    registration
+    registration,
+    login
 }

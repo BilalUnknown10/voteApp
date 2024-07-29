@@ -1,5 +1,6 @@
 const {Schema, model} = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 const voterSchema = new Schema({
@@ -51,7 +52,12 @@ voterSchema.pre("save", async function (next){
     } catch (error) {
         console.log(error);
     }
-})
+});
+
+voterSchema.methods.isPasswordCorrect = async function (password) {
+
+    return await bcrypt.compare(password, this.password)
+}
 
 const Voter = new model("Voter", voterSchema);
 
