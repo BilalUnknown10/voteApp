@@ -9,8 +9,10 @@ const generateAccessToken = async (userId) => {
     const token = await voter.generateAccessToken()
     
     voter.access_Token = token;
+      
+    await voter.save();
 
-    return await voter.save()
+    return token
     
   } catch (error) {
     console.log("error in generating acces token function", error);
@@ -39,9 +41,17 @@ const registration = async (req, res) => {
         name, email, phoneNumber, cardNumber, password
      })
 
-     await generateAccessToken(voter._id)
+     const accessTokenGenerate = await generateAccessToken(voter._id)
 
-     return res.status(200).json(voter)
+       const options = {
+        httpOnly : true,
+        secure : true
+       }
+
+     return res
+     .status(200)
+     .cookie("accessToken", accessTokenGenerate, options)
+     .json(voter)
 
    } catch (error) {
     
@@ -69,9 +79,17 @@ const login = async (req, res) => {
       return res.status(400).json("Invalid password");
     }
 
-       await generateAccessToken(voter._id)
+      const accessTokenGenerate = await generateAccessToken(voter._id)
 
-    return res.status(200).json( "User logged in successfully" );
+       const options = {
+        httpOnly : true,
+        secure : true
+       }
+
+    return res
+    .status(200)
+    .cookie("accessToken", accessTokenGenerate, options)
+    .json( "User logged in successfully" );
     
   } catch (error) {
     
@@ -82,9 +100,29 @@ const login = async (req, res) => {
   };
 };
 
+const logOut = async (req, res) => {
+  try {
+    const voter = req.voter;
+
+    voter.access_Token = undefined
+
+    await voter.save()
+
+    res
+    .status(200)
+    .clearCookie("accessToken")
+    .json(voter)
+    
+  } catch (error) {
+    for(field  in error.errors){
+      res.status(200).json(error.errors[field].message)
+    }
+  }
+}
 
 
 module.exports = {
     registration,
-    login
+    login,
+    logOut
 }
