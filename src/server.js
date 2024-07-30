@@ -18,7 +18,7 @@ app.use(cookie());
 
 connection();
 
-app.use(router)
+app.use('/voter',router)
 
 app.listen(port, () => {
     console.log(`Server started on ${port} port`);

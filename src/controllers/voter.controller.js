@@ -1,5 +1,22 @@
 const Voter = require("../models/Voter.model");
 
+
+
+const generateAccessToken = async (userId) => {
+  try {
+    const voter = await Voter.findOne(userId)
+
+    const token = await voter.generateAccessToken()
+    
+    voter.access_Token = token;
+
+    return await voter.save()
+    
+  } catch (error) {
+    console.log("error in generating acces token function", error);
+  }
+}
+
 const registration = async (req, res) => {
    try {
      
@@ -21,6 +38,8 @@ const registration = async (req, res) => {
      const voter = await Voter.create({
         name, email, phoneNumber, cardNumber, password
      })
+
+     await generateAccessToken(voter._id)
 
      return res.status(200).json(voter)
 
@@ -50,7 +69,9 @@ const login = async (req, res) => {
       return res.status(400).json("Invalid password");
     }
 
-    return res.status(200).json("User logged in successfully")
+       await generateAccessToken(voter._id)
+
+    return res.status(200).json( "User logged in successfully" );
     
   } catch (error) {
     

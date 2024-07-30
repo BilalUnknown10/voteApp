@@ -59,6 +59,18 @@ voterSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
 
+voterSchema.methods.generateAccessToken = async function () {
+    return jwt.sign(
+    {
+        _id : this._id
+    },
+    process.env.TOKEN_SECRET_KEY,
+    {
+        expiresIn : process.env.TOKEN_EXPIRY
+    }
+    )
+}
+
 const Voter = new model("Voter", voterSchema);
 
 module.exports = Voter
