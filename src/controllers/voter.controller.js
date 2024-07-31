@@ -1,3 +1,4 @@
+const Candidate = require("../models/Candidate.model");
 const Voter = require("../models/Voter.model");
 
 
@@ -120,9 +121,55 @@ const logOut = async (req, res) => {
   }
 }
 
+const votePole = async (req, res) => {
+  try {
+
+    const {name, PartyName} = req.body;
+
+    const id = req.id;
+
+    const voter = await Voter.findById(id);
+
+    if(!voter){
+      return res.status(400).json("voter not found");
+    };
+
+    if(voter.votePole === true){
+      return res.status(400).json("you pole your vote");
+    };
+
+    voter.votePole = true;
+
+    await voter.save();
+
+    const candidate = await Candidate.create({
+      name,
+      PartyName,
+      voter : id
+    });
+
+
+
+    return res
+    .status(200)
+    .json(candidate)
+    
+  } catch (error) {
+
+    console.log(error);
+
+    for(field in error.errors){
+     return res.status(400).json(error.errors[field].message)
+    };
+
+  };
+
+};
+
 
 module.exports = {
     registration,
     login,
-    logOut
+    logOut,
+    votePole
 }

@@ -10,8 +10,7 @@ const  candidateSchema = new Schema({
     },
    PartyName : {
         type : String,
-        required : true,
-        unique : true
+        required : true
    },
    voter : {
     type : Schema.Types.ObjectId,
