@@ -3,7 +3,7 @@ const express = require('express');
 //  const bodyParser = require('body-parser')
 const cookie = require('cookie-parser');
 const connection = require('./db/Conn');
-const router = require('./routes/voterRoutes/Voter.routes')
+const router = require('./routes/Voter.routes')
 
 
 const app = express()

@@ -1,11 +1,11 @@
 const Router = require('express');
-const auth = require('../../middleware/Auth.middleware.js')
+const auth = require('../middleware/Auth.middleware.js')
 const {
      registration,
      login,
      logOut, 
      votePole
-    } = require('../../controllers/voter.controller');
+    } = require('../controllers/voter.controller.js');
 const router = Router();
 
 
