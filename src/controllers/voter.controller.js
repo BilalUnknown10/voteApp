@@ -183,29 +183,29 @@ const checkUserLogin = async (req, res) => {
 }
 
 const voteCount = async (req, res) => {
-  try {
+  // try {
 
-    const party = req.params;
+  //   const party = req.params;
 
-    const count = await Candidate.aggregate([
-      {
-        $match : {
-          partyName : party.party
-        }
-      },
-      {
-        $count : "voteCount"
-      }
-    ])
+  //   const count = await Candidate.aggregate([
+  //     {
+  //       $match : {
+  //         partyName : party.party
+  //       }
+  //     },
+  //     {
+  //       $count : "voteCount"
+  //     }
+  //   ])
 
-    if(count[0]?.voteCount === undefined){
-      return res.status(200).json(0)
-    }
-    return res.status(200).json(count[0]?.voteCount)
-  } catch (error) {
-    console.log(error);
+  //   if(count[0]?.voteCount === undefined){
+  //     return res.status(200).json(0)
+  //   }
+  //   return res.status(200).json(count[0]?.voteCount)
+  // } catch (error) {
+  //   console.log(error);
     
-  }
+  // }
 }
 
 module.exports = {
