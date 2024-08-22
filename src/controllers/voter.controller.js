@@ -1,4 +1,4 @@
-const Candidate = require("../models/Candidate.model");
+const Candidate = require('../models/Candidate.model');
 const Voter = require("../models/Voter.model");
 
 
@@ -32,11 +32,26 @@ const registration = async (req, res) => {
     //    return res.status(400).json("All field are required")
     //  }
 
-     const voterExist = await Voter.findOne({cardNumber})
+    //  const voterExist = await Voter.findOne({
+    //   $or : [{cardNumber},{email}]
+    //  })
 
-     if(voterExist) {
-       return res.status(300).json("Voter already exist")
+    const checkinCnic = await Voter.findOne({cardNumber})
+
+     if(checkinCnic) {
+       return res.status(300).json("cnic already exist")
      }
+
+     const checkingEmail = await Voter.findOne({email});
+     if(checkingEmail){
+      return res.status(300).json("this email already exist")
+     }
+
+     const checkingPhone = await Voter.findOne({phoneNumber});
+     if(checkingPhone){
+      return res.status(300).json(" phone number already exist")
+     }
+     
 
      const voter = await Voter.create({
         name, email, phoneNumber, cardNumber, password
@@ -52,12 +67,13 @@ const registration = async (req, res) => {
      return res
      .status(200)
      .cookie("accessToken", accessTokenGenerate, options)
-     .json(voter)
+     .json("User registered successfully")
 
    } catch (error) {
     
     for(field in error.errors){
-      return res.status(200).json(error.errors[field].message);
+      return res.status(400).json(error.errors[field].message);
+      // return res.status(400).json(error)
     }
    
    }
@@ -122,54 +138,81 @@ const logOut = async (req, res) => {
 }
 
 const votePole = async (req, res) => {
-  try {
 
-    const {name, PartyName} = req.body;
+  try {
 
     const id = req.id;
 
-    const voter = await Voter.findById(id);
+    const user = await Voter.findById(id);
 
-    if(!voter){
-      return res.status(400).json("voter not found");
-    };
+    if(!user){
+      return res.status(300).json('User are not found')
+    }
 
-    if(voter.votePole === true){
-      return res.status(400).json("you pole your vote");
-    };
-
-    voter.votePole = true;
-
-    await voter.save();
+    if(user.votePole === true){
+      return res.status(300).json('User already pole vote');
+    }
+    
+    const {name, partyName} = req.body;
 
     const candidate = await Candidate.create({
-      name,
-      PartyName,
-      voter : id
+      name, partyName, voter : id
     });
 
-
-
+    user.votePole = true;
+    await user.save();
+    
     return res
     .status(200)
-    .json(candidate)
-    
+    .json('Vote pole successfully');
+
   } catch (error) {
-
-    console.log(error);
-
-    for(field in error.errors){
-     return res.status(400).json(error.errors[field].message)
-    };
-
-  };
-
+    console.log(error)
+  }
 };
 
+const checkUserLogin = async (req, res) => {
+  try {
+    const name = req.voter.name
+
+    res.status(200).json(name)
+  } catch (error) {
+    console.log('Error from checking user',error);
+    
+  }
+}
+
+const voteCount = async (req, res) => {
+  try {
+
+    const party = req.params;
+
+    const count = await Candidate.aggregate([
+      {
+        $match : {
+          partyName : party.party
+        }
+      },
+      {
+        $count : "voteCount"
+      }
+    ])
+
+    if(count[0]?.voteCount === undefined){
+      return res.status(200).json(0)
+    }
+    return res.status(200).json(count[0]?.voteCount)
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
 
 module.exports = {
     registration,
     login,
     logOut,
-    votePole
+    votePole,
+    checkUserLogin,
+    voteCount
 }

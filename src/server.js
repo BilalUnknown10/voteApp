@@ -3,7 +3,8 @@ const express = require('express');
 //  const bodyParser = require('body-parser')
 const cookie = require('cookie-parser');
 const connection = require('./db/Conn');
-const router = require('./routes/Voter.routes')
+const router = require('./routes/Voter.routes');
+const cors = require('cors')
 
 
 const app = express()
@@ -14,6 +15,13 @@ const port = process.env.PORT || 4000;
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 app.use(cookie());
+
+const corsOptions = {
+    origin: process.env.CORS_ORIGION,
+    credentials : true
+}
+
+app.use(cors(corsOptions))
 // app.use(bodyParser);
 
 connection();

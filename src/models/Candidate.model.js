@@ -8,13 +8,13 @@ const  candidateSchema = new Schema({
         min : [3, "minimuim 3 character"],
         required : true
     },
-   PartyName : {
+   partyName : {
         type : String,
         required : true
    },
    voter : {
     type : Schema.Types.ObjectId,
-    ref : "Voter"
+    ref : "Voter",
    }
 
 });
