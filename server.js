@@ -17,7 +17,7 @@ app.use(express.urlencoded({extended : true}));
 app.use(cookie());
 
 const corsOptions = {
-    origin: process.env.CORS_ORIGION,
+    origin: "https://voting-app-front-end.vercel.app",
     credentials : true
 }
 
