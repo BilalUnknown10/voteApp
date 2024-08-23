@@ -208,11 +208,16 @@ const voteCount = async (req, res) => {
   }
 }
 
+const home = (req, res) => {
+  res.status(200).json('This is from voter controller file')
+}
+
 module.exports = {
     registration,
     login,
     logOut,
     votePole,
     checkUserLogin,
-    voteCount
+    voteCount,
+    home
 }
