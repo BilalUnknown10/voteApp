@@ -27,6 +27,10 @@ app.use(cors(corsOptions))
 
 connection();
 
+app.get('/home', (req, res) => {
+    res.send("This is home route")
+})
+
 app.use('/voter',router)
 
 app.listen(port, () => {
