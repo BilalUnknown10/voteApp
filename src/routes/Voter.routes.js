@@ -1,4 +1,4 @@
-const Router = require('express');
+const {Router} = require('express');
 const auth = require('../middleware/Auth.middleware.js')
 const {
      registration,
