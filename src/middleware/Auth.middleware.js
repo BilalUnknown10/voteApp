@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Voter = require('../models/Voter.model');
+require('dotenv').config()
 
 const authMiddleware = async (req, res, next) => {
     const token = await req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ");

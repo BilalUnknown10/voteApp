@@ -1,6 +1,6 @@
 const Candidate = require('../models/Candidate.model');
 const Voter = require("../models/Voter.model");
-
+require('dotenv').config()
 
 
 const generateAccessToken = async (userId) => {
