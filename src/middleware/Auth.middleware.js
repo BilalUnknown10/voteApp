@@ -3,19 +3,21 @@ const Voter = require('../models/Voter.model');
 require('dotenv').config()
 
 const authMiddleware = async (req, res, next) => {
-    const token = await req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ");
+    const token =  req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ");
   
     if(!token){
-        return res.status(400).json("Unauthorized request")
+        return res.sttus(400).json("Unauthorized request")
     }
 
-    const verifyToken = await jwt.verify(token, process.env.TOKEN_SECRET_KEY)
+    const verifyToken = jwt.verify(token, process.env.TOKEN_SECRET_KEY)
 
+    const voter = await Voter.findById(verifyToken?._id);
+    console.log(voter.name)
+    
     if(!verifyToken){
         return res.status(400).json("Invalid Token")
     }
 
-    const voter = await Voter.findById(verifyToken._id)
 
     req.voter = voter;
     req.id = voter._id
