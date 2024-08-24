@@ -175,7 +175,7 @@ const checkUserLogin = async (req, res) => {
   try {
     const name = req.voter.name
 
-    res.status(200).json("Hello this is me")
+    res.status(200).json(name)
   } catch (error) {
     console.log('Error from checking user',error);
     
