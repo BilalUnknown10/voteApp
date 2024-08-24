@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// require('dotenv').config()
+require('dotenv').config()
 
 const local = process.env.Database_URL_LOCAL
 const uri = process.env.Database_URL;
