@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Voter = require('../models/Voter.model');
 
 const authMiddleware = async (req, res, next) => {
-    const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ");
+    const token = await req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ");
   
     if(!token){
         return res.status(400).json("Unauthorized request")
