@@ -8,7 +8,7 @@ const authMiddleware = async (req, res, next) => {
         return res.status(400).json("Unauthorized request")
     }
 
-    const verifyToken = jwt.verify(token, process.env.TOKEN_SECRET_KEY)
+    const verifyToken = await jwt.verify(token, process.env.TOKEN_SECRET_KEY)
 
     if(!verifyToken){
         return res.status(400).json("Invalid Token")
