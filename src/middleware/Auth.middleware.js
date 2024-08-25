@@ -3,7 +3,7 @@ const Voter = require('../models/Voter.model');
 require('dotenv').config()
 
 const authMiddleware = async (req, res, next) => {
-    const token =  req.cookies.accessToken 
+    const token = await req.cookies.accessToken 
     console.log(token)
     // || 
     // req.header("Authorization")?.replace("Bearer ");
