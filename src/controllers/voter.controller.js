@@ -99,7 +99,7 @@ const login = async (req, res) => {
       const accessTokenGenerate = await generateAccessToken(voter._id)
 
        const options = {
-        httpOnly : true,
+        httpsOnly : true,
         secure : true
        }
 
