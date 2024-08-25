@@ -10,7 +10,7 @@ const connection = async () => {
     
    try {
        
-       const db = mongoose.connect(`${uri}/${name}`);
+       const db = mongoose.connect(`${uri}`);
        console.log("Database connection successfull");
 
    } catch (error) {
