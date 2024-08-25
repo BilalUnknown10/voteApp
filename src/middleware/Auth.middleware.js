@@ -11,6 +11,9 @@ const authMiddleware = async (req, res, next) => {
 
     const verifyToken = jwt.verify(token, process.env.TOKEN_SECRET_KEY)
 
+    console.log(verifyToken);
+    
+
     const voter = await Voter.findById(verifyToken?._id);
     
     if(!verifyToken){
