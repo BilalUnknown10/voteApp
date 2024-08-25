@@ -17,8 +17,8 @@ app.use(express.urlencoded({extended : true}));
 
 
 const corsOptions = {
-    origin : ["https://votin-app-front-end.vercel.app"],
-    methods : ["GET", "POST", "PATCH", "DELETE", "PUT"],
+    // origin : ["https://votin-app-front-end.vercel.app"],
+    // methods : ["GET", "POST", "PATCH", "DELETE", "PUT"],
     credentials : true
 }
 
