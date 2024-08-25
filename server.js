@@ -1,6 +1,6 @@
 const express = require('express');
  require('dotenv').config();
-//  const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const cookie = require('cookie-parser');
 const connection = require('./src/db/Conn.js');
 const router = require('./src/routes/Voter.routes.js');
@@ -14,7 +14,7 @@ const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
-app.use(cookie());
+
 
 const corsOptions = {
     origin : ["https://votin-app-front-end.vercel.app"],
@@ -22,8 +22,9 @@ const corsOptions = {
     credentials : true
 }
 
-app.use(cors(corsOptions))
-// app.use(bodyParser);
+app.use(cors(corsOptions));
+app.use(cookie());
+app.use(bodyParser);
 
 connection();
 
