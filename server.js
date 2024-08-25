@@ -1,6 +1,6 @@
 const express = require('express');
  require('dotenv').config();
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser')
 const cookie = require('cookie-parser');
 const connection = require('./src/db/Conn.js');
 const router = require('./src/routes/Voter.routes.js');
@@ -24,7 +24,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(cookie());
-app.use(bodyParser);
+// app.use(bodyParser);
 
 connection();
 
