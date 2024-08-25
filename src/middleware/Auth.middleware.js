@@ -12,7 +12,6 @@ const authMiddleware = async (req, res, next) => {
     const verifyToken = jwt.verify(token, process.env.TOKEN_SECRET_KEY)
 
     const voter = await Voter.findById(verifyToken?._id);
-    console.log(voter.name)
     
     if(!verifyToken){
         return res.status(400).json("Invalid Token")
