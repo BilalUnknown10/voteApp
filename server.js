@@ -16,13 +16,13 @@ app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 
 
-const corsOptions = {
-    // origin : ["https://votin-app-front-end.vercel.app"],
-    // methods : ["GET", "POST", "PATCH", "DELETE", "PUT"],
-    credentials : true
-}
+// const corsOptions = {
+//     // origin : ["https://votin-app-front-end.vercel.app"],
+//     // methods : ["GET", "POST", "PATCH", "DELETE", "PUT"],
+//     credentials : true
+// }
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(cookie());
 // app.use(bodyParser);
 
