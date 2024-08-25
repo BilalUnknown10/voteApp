@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const auth = require('../middleware/Auth.middleware.js')
-require('dotenv').config()
+require('dotenv').configDotenv()
 const {
      registration,
      login,

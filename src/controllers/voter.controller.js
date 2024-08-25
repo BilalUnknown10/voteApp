@@ -173,7 +173,7 @@ const votePole = async (req, res) => {
 
 const checkUserLogin = async (req, res) => {
   try {
-    const name = req.voter.name
+    const name = req.id
 
     res.status(200).json(name)
   } catch (error) {
