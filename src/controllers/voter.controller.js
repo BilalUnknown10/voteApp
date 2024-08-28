@@ -67,7 +67,9 @@ const registration = async (req, res) => {
      return res
      .status(200)
      .cookie("accessToken", accessTokenGenerate, options)
-     .json("User registered successfully")
+     .json({token : accessTokenGenerate,
+      message : 'User registered successfully'
+     })
 
    } catch (error) {
     
@@ -106,7 +108,7 @@ const login = async (req, res) => {
     return res
     .status(200)
     .cookie("accessToken", accessTokenGenerate, options)
-    .json( "User logged in successfully" );
+    .json( accessTokenGenerate );
     
   } catch (error) {
     
@@ -173,7 +175,7 @@ const votePole = async (req, res) => {
 
 const checkUserLogin = async (req, res) => {
   try {
-    const name = req.id
+    const name = req.voter.name
 
     res.status(200).json(name)
   } catch (error) {
