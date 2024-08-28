@@ -73,10 +73,10 @@ const registration = async (req, res) => {
 
    } catch (error) {
     
-    for(field in error.errors){
-      return res.status(400).json(error.errors[field].message);
-      // return res.status(400).json(error)
-    }
+    // for(field in error.errors){
+      // return res.status(400).json(error.errors[field].message);
+      return res.status(400).json(error)
+    // }
    
    }
 };
