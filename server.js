@@ -15,7 +15,7 @@ const port = process.env.PORT || 4000;
 
 
 const corsOptions = {
-    origin : [process.env.ORIGIION_URL],
+    origin : ['https://votin-app-front-end.vercel.app'],
     methods : ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"],
     credentials : true
 }
