@@ -67,7 +67,7 @@ const registration = async (req, res) => {
      return res
      .status(200)
      .cookie("accessToken", accessTokenGenerate, options)
-     .json({
+     .json({ token : accessTokenGenerate,
       message : 'User registered successfully'
      })
 

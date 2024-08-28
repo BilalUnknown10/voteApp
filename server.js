@@ -16,7 +16,7 @@ const port = process.env.PORT || 4000;
 connection();
 
 const corsOptions = {
-    origin : ["http://localhost:5173"],
+    origin : ["https://votin-app-front-end.vercel.app"],
     methods : ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"],
     credentials : true
 }
