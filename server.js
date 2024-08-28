@@ -13,21 +13,21 @@ const port = process.env.PORT || 4000;
 
 
 
+connection();
 
 const corsOptions = {
-    origin : ['https://votin-app-front-end.vercel.app'],
+    origin : ["https://votin-app-front-end.vercel.app"],
     methods : ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"],
     credentials : true
 }
 
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
-app.use(cors(corsOptions));
 app.use(cookie());
+app.use(cors(corsOptions));
 
 // app.use(bodyParser);
 
-connection();
 
 app.use('/voter',router)
 
