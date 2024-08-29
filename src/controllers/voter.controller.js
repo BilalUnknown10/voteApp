@@ -218,5 +218,4 @@ module.exports = {
     votePole,
     checkUserLogin,
     voteCount,
-    home
 }
