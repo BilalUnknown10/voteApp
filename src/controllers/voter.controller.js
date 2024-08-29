@@ -39,17 +39,17 @@ const registration = async (req, res) => {
     const checkinCnic = await Voter.findOne({cardNumber})
 
      if(checkinCnic) {
-       return res.status(300).json("cnic already exist")
+       return res.status(300).json("CNIC already exist")
      }
 
      const checkingEmail = await Voter.findOne({email});
      if(checkingEmail){
-      return res.status(300).json("this email already exist")
+      return res.status(300).json("This email already exist")
      }
 
      const checkingPhone = await Voter.findOne({phoneNumber});
      if(checkingPhone){
-      return res.status(300).json(" phone number already exist")
+      return res.status(300).json(" Phone number already exist")
      }
      
 
@@ -68,7 +68,7 @@ const registration = async (req, res) => {
      .status(200)
      .cookie("accessToken", accessTokenGenerate, options)
      .json({ token : accessTokenGenerate,
-      message : 'User registered successfully'
+      message : 'registered successfully'
      })
 
    } catch (error) {
@@ -89,7 +89,7 @@ const login = async (req, res) => {
     const voter = await Voter.findOne({cardNumber});
 
     if(!voter){
-      return res.status(400).json("Card number are not register")
+      return res.status(400).json("CNIC Number are not register")
     }
 
     const passwordCheck = await voter.isPasswordCorrect(password);
@@ -152,7 +152,7 @@ const votePole = async (req, res) => {
     }
 
     if(user.votePole === true){
-      return res.status(300).json('User already pole vote');
+      return res.status(300).json('User already pole our vote');
     }
     
     const {name, partyName} = req.body;
@@ -210,9 +210,6 @@ const voteCount = async (req, res) => {
   }
 }
 
-const home = (req, res) => {
-  res.status(200).json('This is from voter controller file')
-}
 
 module.exports = {
     registration,
