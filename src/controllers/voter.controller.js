@@ -108,7 +108,7 @@ const login = async (req, res) => {
     return res
     .status(200)
     .cookie("accessToken", accessTokenGenerate, options)
-    .json( accessTokenGenerate );
+    .json( {message : 'Login successfully',token : accessTokenGenerate} );
     
   } catch (error) {
     
