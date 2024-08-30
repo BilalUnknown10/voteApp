@@ -130,7 +130,7 @@ const logOut = async (req, res) => {
     res
     .status(200)
     .clearCookie("accessToken")
-    .json(voter)
+    .json('Logout successfully')
     
   } catch (error) {
     for(field  in error.errors){
